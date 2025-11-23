@@ -9,70 +9,97 @@
     body {
         margin: 0;
         padding: 0;
-        font-family: Arial, sans-serif;
+        font-family: "Poppins", Arial, sans-serif;
         height: 100vh;
-        background: linear-gradient(135deg, #3b0a61, #8c3ee6);
+        background: radial-gradient(circle at top, #9b4dff 0%, #3b0a61 70%);
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
-    /* Glass Box */
-    .login-box {
-        width: fit-content;
-        padding: 30px;
-        backdrop-filter: blur(15px);
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        animation: fadeIn 1s ease;
+    /* Soft glow background effect */
+    .glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.12);
+        filter: blur(120px);
+        border-radius: 50%;
+        top: -150px;
+        left: -150px;
+        z-index: -1;
+    }
 
-        position: relative; /* مهم لوضع اللودر في المنتصف */
+    .login-box {
+        width: 330px;
+        padding: 35px;
+        backdrop-filter: blur(18px);
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        animation: fadeIn 1s ease;
+        position: relative;
         overflow: hidden;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
     }
 
     h2 {
         text-align: center;
         color: white;
-        margin-bottom: 20px;
+        font-size: 26px;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
     }
 
     .input-box {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        animation: slide 0.7s ease;
+    }
+
+    @keyframes slide {
+        from { transform: translateY(15px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
     }
 
     .input-box input {
         width: 100%;
-        padding: 12px;
-        border-radius: 10px;
-        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
         outline: none;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.2);
         color: white;
         font-size: 15px;
-        transition: 0.3s;
+        transition: 0.35s ease;
+        backdrop-filter: blur(5px);
     }
 
-    .input-box input:hover {
-        width: 105%;
-        border: 2px solid #000;
+    .input-box input::placeholder {
+        color: #eee;
+    }
+
+    .input-box input:hover,
+    .input-box input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #fff;
+        transform: scale(1.03);
     }
 
     button {
         width: 100%;
-        padding: 12px;
+        padding: 15px;
         border: none;
-        border-radius: 10px;
+        border-radius: 12px;
         background: #ffffff;
         color: #3b0a61;
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 17px;
+        font-weight: 600;
         cursor: pointer;
         transition: 0.3s;
         margin-top: 10px;
@@ -81,26 +108,27 @@
     button:hover {
         background: #3b0a61;
         color: #fff;
-        width: 105%;
+        transform: scale(1.04);
+        letter-spacing: 1px;
     }
 
-    /* Loader centered */
+    /* Loader (centered) */
     .loader {
         display: none;
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
+        z-index: 10;
 
         width: 50px;
         height: 28px;
-        --_g: no-repeat radial-gradient(farthest-side,#000 94%,#0000);
+        --_g: no-repeat radial-gradient(farthest-side,#fff 94%,#0000);
         background:
             var(--_g) 50% 0,
             var(--_g) 100% 0;
         background-size: 12px 12px;
         animation: l23-0 1.5s linear infinite;
-        z-index: 10;
     }
 
     .loader:before {
@@ -109,7 +137,7 @@
         height: 12px;
         aspect-ratio: 1;
         border-radius: 50%;
-        background: #000;
+        background: #fff;
         left: 0;
         top: 0;
         animation:
@@ -140,25 +168,250 @@
         background: #4CAF50;
         color: white;
         padding: 15px 20px;
-        border-radius: 10px;
+        border-radius: 12px;
         font-size: 18px;
         transition: 0.6s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     }
 
     .success-msg.show {
         right: 20px;
     }
-
 </style>
 </head>
 
 <body>
 
+<div class="glow"></div>
+
 <div class="success-msg" id="successMsg">Login Successful!</div>
 
 <div class="login-box">
-    <h2>Login</h2>
+    <h2>Welcome Back</h2>
+
+    <div class="input-box">
+        <input type="text" id="username" placeholder="Username">
+    </div>
+
+    <div class="input-box">
+        <input type="password" id="password" placeholder="Password">
+    </div>
+
+    <button onclick="login()">Login</button>
+
+    <div class="loader" id="loader"></div>
+</div>
+
+<script>
+function login() {
+    const loader = document.getElementById("loader");
+    const msg = document.getElementById("successMsg");
+
+    loader.style.display = "block";   // Start loading
+
+    setTimeout(() => {
+        loader.style.display = "none";  // Stop loading
+        msg.classList.add("show");       // Show success message
+
+        setTimeout(() => {
+            msg.classList.remove("show");  // Hide message
+        }, 3000);
+
+    }, 1500);
+}
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", Arial, sans-serif;
+        height: 100vh;
+        background: radial-gradient(circle at top, #9b4dff 0%, #3b0a61 70%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Soft glow background effect */
+    .glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.12);
+        filter: blur(120px);
+        border-radius: 50%;
+        top: -150px;
+        left: -150px;
+        z-index: -1;
+    }
+
+    .login-box {
+        width: 330px;
+        padding: 35px;
+        backdrop-filter: blur(18px);
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        animation: fadeIn 1s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+        text-align: center;
+        color: white;
+        font-size: 26px;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+    }
+
+    .input-box {
+        margin-bottom: 20px;
+        animation: slide 0.7s ease;
+    }
+
+    @keyframes slide {
+        from { transform: translateY(15px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .input-box input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 15px;
+        transition: 0.35s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .input-box input::placeholder {
+        color: #eee;
+    }
+
+    .input-box input:hover,
+    .input-box input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #fff;
+        transform: scale(1.03);
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        background: #ffffff;
+        color: #3b0a61;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #3b0a61;
+        color: #fff;
+        transform: scale(1.04);
+        letter-spacing: 1px;
+    }
+
+    /* Loader (centered) */
+    .loader {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+
+        width: 50px;
+        height: 28px;
+        --_g: no-repeat radial-gradient(farthest-side,#fff 94%,#0000);
+        background:
+            var(--_g) 50% 0,
+            var(--_g) 100% 0;
+        background-size: 12px 12px;
+        animation: l23-0 1.5s linear infinite;
+    }
+
+    .loader:before {
+        content: "";
+        position: absolute;
+        height: 12px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #fff;
+        left: 0;
+        top: 0;
+        animation:
+            l23-1 1.5s linear infinite,
+            l23-2 0.5s cubic-bezier(0,200,.8,200) infinite;
+    }
+
+    @keyframes l23-0 {
+      0%,31%  {background-position: 50% 0   ,100% 0}
+      33%     {background-position: 50% 100%,100% 0}
+      43%,64% {background-position: 50% 0   ,100% 0}
+      66%     {background-position: 50% 0   ,100% 100%}
+      79%     {background-position: 50% 0   ,100% 0}
+      100%    {transform:translateX(calc(-100%/3))}
+    }
+    @keyframes l23-1 {
+      100% {left:calc(100% + 7px)}
+    }
+    @keyframes l23-2 {
+      100% {top:-0.1px}
+    }
+
+    /* Success Message Sliding */
+    .success-msg {
+        position: fixed;
+        right: -300px;
+        top: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        font-size: 18px;
+        transition: 0.6s ease;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .success-msg.show {
+        right: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="success-msg" id="successMsg">Login Successful!</div>
+
+<div class="login-box">
+    <h2>Welcome Back</h2>
 
     <div class="input-box">
         <input type="text" id="username" placeholder="Username">

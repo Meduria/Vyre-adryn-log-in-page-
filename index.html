@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        background: linear-gradient(135deg, #3b0a61, #8c3ee6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Glass Box */
+    .login-box {
+        width: 350px;
+        padding: 30px;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        margin-bottom: 15px;
+    }
+
+    .input-box input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .input-box input:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #3b0a61;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #e6d5ff;
+    }
+
+    /* Loading Animation */
+    .loader {
+        display: none;
+        margin: 10px auto;
+        border: 4px solid #fff;
+        border-top: 4px solid transparent;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Success Message Sliding */
+    .success-msg {
+        position: fixed;
+        right: -300px;
+        top: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        transition: 0.6s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .success-msg.show {
+        right: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="success-msg" id="successMsg">Login Successful!</div>
+
+<div class="login-box">
+    <h2>Login</h2>
+    <div class="input-box">
+        <input type="text" id="username" placeholder="Username">
+    </div>
+    <div class="input-box">
+        <input type="password" id="password" placeholder="Password">
+    </div>
+    <button onclick="login()">Login</button>
+    <div class="loader" id="loader"></div>
+</div>
+
+<script>
+function login() {
+    const loader = document.getElementById("loader");
+    const msg = document.getElementById("successMsg");
+
+    loader.style.display = "block";   // Start loading
+
+    setTimeout(() => {
+        loader.style.display = "none";  // Stop loading
+        msg.classList.add("show");       // Show success message
+
+        setTimeout(() => {
+            msg.classList.remove("show");  // Hide message
+        }, 3000);
+
+    }, 1500);
+}
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        background: linear-gradient(135deg, #3b0a61, #8c3ee6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Glass Box */
+    .login-box {
+        width: 350px;
+        padding: 30px;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        margin-bottom: 15px;
+    }
+
+    .input-box input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .input-box input:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #3b0a61;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #e6d5ff;
+    }
+
+    /* Loading Animation */
+    .loader {
+        display: none;
+        margin: 10px auto;
+        border: 4px solid #fff;
+        border-top: 4px solid transparent;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Success Message Sliding */
+    .success-msg {
+        position: fixed;
+        right: -300px;
+        top: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        transition: 0.6s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .success-msg.show {
+        right: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="success-msg" id="successMsg">Login Successful!</div>
+
+<div class="login-box">
+    <h2>Login</h2>
+    <div class="input-box">
+        <input type="text" id="username" placeholder="Username">
+    </div>
+    <div class="input-box">
+        <input type="password" id="password" placeholder="Password">
+    </div>
+    <button onclick="login()">Login</button>
+    <div class="loader" id="loader"></div>
+</div>
+
+<script>
+function login() {
+    const loader = document.getElementById("loader");
+    const msg = document.getElementById("successMsg");
+
+    loader.style.display = "block";   // Start loading
+
+    setTimeout(() => {
+        loader.style.display = "none";  // Stop loading
+        msg.classList.add("show");       // Show success message
+
+        setTimeout(() => {
+            msg.classList.remove("show");  // Hide message
+        }, 3000);
+
+    }, 1500);
+}
+</script>
+
+</body>
+</html>

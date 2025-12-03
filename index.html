@@ -12,12 +12,28 @@
         font-family: Arial, sans-serif;
         height: 100vh;
         background: linear-gradient(135deg, #3b0a61, #8c3ee6);
+        
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
     }
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* لجعل الفيديو خلف المحتوى */
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    backdrop-filter: none; /* يمكنك إضافة بلور هنا */
+}
     /* Floating Animation */
     @keyframes float {
         0% { transform: translateY(0); }
@@ -179,7 +195,9 @@
 </head>
 
 <body>
-
+<video autoplay muted loop id="bg-video">
+  <source src="7048189_Animation_Motion_Graphic_1280x720.mp4" type="video/mp4">
+</video>
 <div class="success-msg" id="successMsg">Login Successful!</div>
 
 <div class="login-box">
